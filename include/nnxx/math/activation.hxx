@@ -25,7 +25,7 @@ constexpr Float identity ( Float val ) noexcept
 template< uti::meta::floating_point Float >
 constexpr Float identity_dx ( Float ) noexcept
 {
-        return Float{ 1 } ;
+        return Float{ 1.0 } ;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -34,13 +34,13 @@ constexpr Float identity_dx ( Float ) noexcept
 template< uti::meta::floating_point Float >
 constexpr Float relu ( Float val ) noexcept
 {
-        return val > 0 ? val : 0 ;
+        return val > 0.0 ? val : 0.0 ;
 }
 
 template< uti::meta::floating_point Float >
 constexpr Float relu_dx ( Float val ) noexcept
 {
-        return val >= 0 ? 1 : 0 ;
+        return val >= 0.0 ? 1.0 : 0.0 ;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -49,13 +49,13 @@ constexpr Float relu_dx ( Float val ) noexcept
 template< uti::meta::floating_point Float >
 constexpr Float leaky_relu ( Float val ) noexcept
 {
-        return val > 0 ? val : val * Float{ 0.01 } ;
+        return val > 0.0 ? val : val * Float{ 0.01 } ;
 }
 
 template< uti::meta::floating_point Float >
 constexpr Float leaky_relu_dx ( Float val ) noexcept
 {
-        return val >= 0 ? 1 : Float{ 0.01 } ;
+        return val >= 0.0 ? 1.0 : Float{ 0.01 } ;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -73,7 +73,7 @@ constexpr Float tanh ( Float val ) noexcept
 template< uti::meta::floating_point Float >
 constexpr Float tanh_dx ( Float val ) noexcept
 {
-        return 1 - val * val ;
+        return 1.0 - val * val ;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -103,7 +103,7 @@ constexpr Float sigmoid ( Float val ) noexcept
 template< uti::meta::floating_point Float >
 constexpr Float sigmoid_dx ( Float val ) noexcept
 {
-        return val * ( 1 - val ) ;
+        return val * ( 1.0 - val ) ;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -112,17 +112,17 @@ constexpr Float sigmoid_dx ( Float val ) noexcept
 template< uti::meta::floating_point Float >
 constexpr Float hard_sigmoid ( Float val ) noexcept
 {
-        return val <= -3 ? 0
-                         : val >= 3 ? 1
-                                    : ( val / 6 ) + Float{ 0.5 } ;
+        return val <= -3.0 ? 0.0
+                           : val >= 3.0 ? 1.0
+                                        : ( val / 6.0 ) + Float{ 0.5 } ;
 }
 
 template< uti::meta::floating_point Float >
 constexpr Float hard_sigmoid_dx ( Float val ) noexcept
 {
-        return val <= -3 ? 0
-                         : val >= 3 ? 1
-                                    : ( Float{ 1 } / 6 ) ;
+        return val <= -3.0 ? 0.0
+                           : val >= 3.0 ? 1.0
+                                        : ( Float{ 1 } / 6.0 ) ;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -131,17 +131,17 @@ constexpr Float hard_sigmoid_dx ( Float val ) noexcept
 template< uti::meta::floating_point Float >
 constexpr Float hard_silu ( Float val ) noexcept
 {
-        return val < -3 ? 0
-                        : val > 3 ? val
-                                  : val * ( val + 3 ) / 6 ;
+        return val < -3.0 ? 0.0
+                          : val > 3.0 ? val
+                                      : val * ( val + 3.0 ) / 6.0 ;
 }
 
 template< uti::meta::floating_point Float >
 constexpr Float hard_silu_dx ( Float val ) noexcept
 {
-        return val < -3 ? 0
-                        : val > 3 ? 1
-                                  : ( 2 * val + 3 ) / 6 ;
+        return val < -3.0 ? 0.0
+                          : val > 3.0 ? 1.0
+                                      : ( 2.0 * val + 3.0 ) / 6.0 ;
 }
 
 
