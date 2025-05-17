@@ -16,6 +16,8 @@
 #include <uti/core/container/tuple.hxx>
 #include <uti/core/container/array.hxx>
 
+#include <cmath>
+
 
 namespace nnxx
 {

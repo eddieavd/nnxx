@@ -16,7 +16,6 @@ namespace nnxx
 
 ////////////////////////////////////////////////////////////////////////////////
 
-
 template< uti::ssize_t Size, uti::meta::floating_point Float >
 constexpr Float mse ( matrix< Size, 1, Float > const & _output_, matrix< Size, 1, Float > const & _expected_ ) noexcept
 {

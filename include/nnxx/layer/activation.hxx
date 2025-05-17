@@ -10,6 +10,7 @@
 
 #include <nnxx/math/matrix.hxx>
 #include <nnxx/math/activation.hxx>
+#include <nnxx/math/initialization.hxx>
 
 #include <nnxx/layer/meta.hxx>
 #include <nnxx/layer/base.hxx>
@@ -18,6 +19,32 @@
 namespace nnxx
 {
 
+
+////////////////////////////////////////////////////////////////////////////////
+
+template< uti::meta::floating_point Float, auto ActFn, auto ActDxFn, auto InitWFn, auto InitBFn >
+class activation_traits
+{
+public:
+        static constexpr auto activation_fn    { ActFn   } ;
+        static constexpr auto activation_dx_fn { ActDxFn } ;
+        static constexpr auto        w_init_fn { InitWFn } ;
+        static constexpr auto        b_init_fn { InitBFn } ;
+} ;
+
+////////////////////////////////////////////////////////////////////////////////
+
+template< uti::meta::floating_point Float >
+using identity_activation_traits = activation_traits< Float, identity< Float >, identity_dx< Float >, he_initialization< Float, true >, he_initialization< Float, false > > ;
+
+template< uti::meta::floating_point Float >
+using relu_activation_traits = activation_traits< Float, relu< Float >, relu_dx< Float >, he_initialization< Float, true >, he_initialization< Float, false > > ;
+
+template< uti::meta::floating_point Float >
+using leaky_relu_activation_traits = activation_traits< Float, leaky_relu< Float >, leaky_relu_dx< Float >, he_initialization< Float, true >, he_initialization< Float, false > > ;
+
+template< uti::meta::floating_point Float >
+using sigmoid_activation_traits = activation_traits< Float, sigmoid< Float >, sigmoid_dx< Float >, xavier_initialization< Float, true >, xavier_initialization< Float, false > > ;
 
 ////////////////////////////////////////////////////////////////////////////////
 

@@ -54,9 +54,9 @@ struct matrix
 
         constexpr matrix & fill ( value_type _val_ ) noexcept ;
 
-        template< typename Filler >
-                requires( uti::meta::convertible_to< decltype( uti::declval< Filler & >()() ), value_type > )
-        constexpr matrix & fill ( Filler&& _fill_ ) noexcept ;
+        template< typename Filler, typename... Args >
+                requires( uti::meta::convertible_to< decltype( uti::declval< Filler & >()( uti::declval< Args&& >()... ) ), value_type > )
+        constexpr matrix & fill ( Filler&& _fill_, Args&&... _args_ ) noexcept ;
 
         template< typename Transform >
                 requires( uti::meta::convertible_to< decltype( uti::declval< Transform & >()( value_type{} ) ), value_type > )
@@ -293,15 +293,15 @@ matrix< Rows, Cols, T >::fill ( value_type _val_ ) noexcept
 
 template< ssize_t Rows, ssize_t Cols, uti::meta::arithmetic T >
         requires( Rows >= 1 && Cols >= 1 )
-template< typename Filler >
-        requires( uti::meta::convertible_to< decltype( uti::declval< Filler & >()() ), T > )
+template< typename Filler, typename... Args >
+        requires( uti::meta::convertible_to< decltype( uti::declval< Filler & >()( uti::declval< Args&& >()... ) ), T > )
 constexpr
 matrix< Rows, Cols, T > &
-matrix< Rows, Cols, T >::fill ( Filler&& _fill_ ) noexcept
+matrix< Rows, Cols, T >::fill ( Filler&& _fill_, Args&&... _args_ ) noexcept
 {
         for( ssize_type i = 0; i < rows * cols; ++i )
         {
-                data[ i ] = _fill_() ;
+                data[ i ] = _fill_( UTI_FWD( _args_ )... ) ;
         }
         return *this ;
 }
