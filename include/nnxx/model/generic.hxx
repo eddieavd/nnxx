@@ -147,9 +147,9 @@ template< ssize_t TestCount >
 constexpr Float
 generic_model< Float, Layers... >::cost ( matrix< TestCount, input_n + output_n, float_type > const & _testset_ ) const noexcept
 {
-        float_type costval {} ;
+        float_type costval { 0.0 } ;
 
-        auto testset_ins  = _testset_.template submatrix< 0,       0, TestCount - 1, input_n            - 1 >() ;
+        auto testset_ins  = _testset_.template submatrix< 0,       0, TestCount - 1, input_n -            1 >() ;
         auto testset_outs = _testset_.template submatrix< 0, input_n, TestCount - 1, input_n + output_n - 1 >() ;
 
         for( ssize_t i = 0; i < TestCount; ++i )
@@ -171,7 +171,7 @@ template< ssize_t TestCount >
 constexpr void
 generic_model< Float, Layers... >::train ( matrix< TestCount, input_n + output_n, float_type > const & _testset_, ssize_t _iterations_, float_type _rate_ ) noexcept
 {
-        auto testset_ins  = _testset_.template submatrix< 0,       0, TestCount - 1, input_n            - 1 >() ;
+        auto testset_ins  = _testset_.template submatrix< 0,       0, TestCount - 1, input_n -            1 >() ;
         auto testset_outs = _testset_.template submatrix< 0, input_n, TestCount - 1, input_n + output_n - 1 >() ;
 
         uti::array< matrix<  input_n, 1, float_type >, TestCount >  inputset ;
@@ -186,7 +186,7 @@ generic_model< Float, Layers... >::train ( matrix< TestCount, input_n + output_n
         {
                 for( ssize_t i = 0; i < TestCount; ++i )
                 {
-                        auto const &    input = inputset.at( i ) ;
+                        auto const &    input =  inputset.at( i ) ;
                         auto const & expected = expectset.at( i ) ;
 
                         activate(    input         ) ;

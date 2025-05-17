@@ -177,9 +177,9 @@ UTI_NODISCARD constexpr
 matrix< Rows, Cols, T >
 matrix< Rows, Cols, T >::operator* ( matrix const & _other_ ) const noexcept
 {
-        auto sum = *this ;
-        sum += _other_ ;
-        return sum ;
+        auto product = *this ;
+        product *= _other_ ;
+        return product ;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -243,7 +243,6 @@ UTI_NODISCARD constexpr
 matrix< Rows, ColsOther, T >
 matrix< Rows, Cols, T >::operator* ( matrix< Cols, ColsOther, T > const & _other_ ) const noexcept
 {
-
         matrix< Rows, ColsOther, T > product {} ;
 
         for( ssize_type i = 0; i < Rows; ++i )
