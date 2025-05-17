@@ -9,6 +9,12 @@ target_compile_options( nnxx_demo PRIVATE -std=c++26                )
 target_compile_options( nnxx_demo PRIVATE "${NNXX_OPT_LVL}"         )
 target_compile_options( nnxx_demo PRIVATE "${NNXX_COMPILE_OPTIONS}" )
 
+add_executable( nnxx_viz model_visualizer.cxx )
+
+target_compile_options( nnxx_viz PRIVATE -std=c++26                )
+target_compile_options( nnxx_viz PRIVATE "${NNXX_OPT_LVL}"         )
+target_compile_options( nnxx_viz PRIVATE "${NNXX_COMPILE_OPTIONS}" )
+
 set( RAYLIB_VERSION 5.5 )
 
 FetchContent_Declare(
@@ -24,6 +30,12 @@ if( NOT raylib_POPULATED )
 endif()
 
 target_link_libraries( nnxx_demo PRIVATE
+        nnxx::nnxx
+        uti_core::uti_core
+        raylib
+)
+
+target_link_libraries( nnxx_viz PRIVATE
         nnxx::nnxx
         uti_core::uti_core
         raylib

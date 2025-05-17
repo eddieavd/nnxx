@@ -9,7 +9,12 @@
 #include <uti/core/util/assert.hxx>
 #include <uti/core/type/traits.hxx>
 #include <uti/core/meta/concepts.hxx>
+#include <uti/core/meta/list.hxx>
+#include <uti/core/meta/join.hxx>
+#include <uti/core/meta/random.hxx>
 #include <uti/core/algo/copy.hxx>
+#include <uti/core/container/tuple.hxx>
+#include <uti/core/container/array.hxx>
 
 
 namespace nnxx

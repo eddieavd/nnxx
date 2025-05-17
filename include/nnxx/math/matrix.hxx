@@ -42,6 +42,9 @@ struct matrix
                       constexpr matrix & operator/= ( value_type _scalar_ )       noexcept ;
         UTI_NODISCARD constexpr matrix   operator/  ( value_type _scalar_ ) const noexcept ;
 
+                      constexpr matrix & operator*= ( matrix const & _other_ )       noexcept ;
+        UTI_NODISCARD constexpr matrix   operator*  ( matrix const & _other_ ) const noexcept ;
+
         template< ssize_type ColsOther >
         UTI_NODISCARD constexpr matrix< Rows, ColsOther, T > operator* ( matrix< Cols, ColsOther, T > const & _other_ ) const noexcept ;
 
@@ -151,6 +154,32 @@ matrix< Rows, Cols, T >::operator- ( matrix const & _other_ ) const noexcept
         auto diff = *this ;
         diff -= _other_ ;
         return diff ;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+template< ssize_t Rows, ssize_t Cols, uti::meta::arithmetic T >
+        requires( Rows >= 1 && Cols >= 1 )
+constexpr
+matrix< Rows, Cols, T > &
+matrix< Rows, Cols, T >::operator*= ( matrix const & _other_ ) noexcept
+{
+        for( ssize_type i = 0; i < rows * cols; ++i )
+        {
+                data[ i ] *= _other_.data[ i ] ;
+        }
+        return *this ;
+}
+
+template< ssize_t Rows, ssize_t Cols, uti::meta::arithmetic T >
+        requires( Rows >= 1 && Cols >= 1 )
+UTI_NODISCARD constexpr
+matrix< Rows, Cols, T >
+matrix< Rows, Cols, T >::operator* ( matrix const & _other_ ) const noexcept
+{
+        auto sum = *this ;
+        sum += _other_ ;
+        return sum ;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
